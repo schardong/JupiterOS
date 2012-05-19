@@ -1,0 +1,16 @@
+megs: 32
+display_library: sdl
+romimage: file=$BXSHARE/BIOS-bochs-latest
+vgaromimage: file=$BXSHARE/VGABIOS-lgpl-latest
+floppya: 1_44=/dev/loop1, status=inserted
+boot: a
+log: bochsout.txt
+mouse: enabled=0
+clock: sync=realtime
+cpu: ips=700000
+keyboard_mapping: enabled=1, map=$BXSHARE/keymaps/x11-pc-us.map
+panic: action=ask
+error: action=report
+
+
+
