@@ -13,22 +13,19 @@
  * @port: The port to read data from.
  * @returns: The data read from the given port.
  */
-static inline unsigned char inb(unsigned short port)
-{
+static inline unsigned char inb(unsigned short port) {
   unsigned char data;
   asm volatile("inb %%dx, %%al" : "=a"(data) : "d"(port));
   return data;
 }
 
-static inline unsigned short inw(unsigned short port)
-{
+static inline unsigned short inw(unsigned short port) {
   unsigned short data;
   asm volatile("inw %%dx, %%al" : "=a"(data) : "d"(port));
   return data;
 }
 
-static inline unsigned int inl(unsigned short port)
-{
+static inline unsigned int inl(unsigned short port) {
   unsigned int data;
   asm volatile("inl %%dx, %%al" : "=a"(data) : "d"(port));
   return data;
@@ -39,25 +36,20 @@ static inline unsigned int inl(unsigned short port)
  * @port: The port to send data to.
  * @data: The data to send.
  */
-static inline void outb(unsigned short port, unsigned char data)
-{
+static inline void outb(unsigned short port, unsigned char data) {
   asm volatile("outb %%al, %%dx" :: "a"(data), "d"(port));
 }
 
-static inline void outw(unsigned short port, unsigned short data)
-{
+static inline void outw(unsigned short port, unsigned short data) {
   asm volatile("outw %%al, %%dx" :: "a"(data), "d"(port));
 }
 
-static inline void outl(unsigned short port, unsigned int data)
-{
+static inline void outl(unsigned short port, unsigned int data) {
   asm volatile("outl %%al, %%dx" :: "a"(data), "d"(port));
 }
 
-static inline void lidt(void* base, unsigned short size)
-{
-  struct
-  {
+static inline void lidt(void* base, unsigned short size) {
+  struct {
     unsigned short size;
     unsigned int base;
   } __attribute__((packed)) IDTR = {size, (unsigned int) base};
@@ -67,8 +59,7 @@ static inline void lidt(void* base, unsigned short size)
 /**
  * irq_enabled - Retuns true if the IRQs are enabled for the CPU.
  */
-static inline int irq_enabled()
-{
+static inline int irq_enabled() {
   int en;
   asm volatile ("pushf\n\t"
                 "popl %0"
@@ -79,32 +70,28 @@ static inline int irq_enabled()
 /**
  * cli - Stops all interrupts.
  */
-static inline void cli()
-{
+static inline void cli() {
   asm volatile("cli");
 }
 
 /**
  * sti - Allows interrupts again.
  */
-static inline void sti()
-{
+static inline void sti() {
   asm volatile("sti");
 }
 
 /**
  * halt - Halts the CPU.
  */
-static inline void halt()
-{
+static inline void halt() {
   asm volatile("hlt");
 }
 
 /**
  * nop - Does nothing for one CPU cycle.
  */
-static inline void nop()
-{
+static inline void nop() {
   asm volatile("nop");
 }
 
