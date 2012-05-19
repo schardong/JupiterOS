@@ -1,3 +1,4 @@
-GDT, IDT, ISR, IRQ
-PIT, Keyboard
-Paging
+DONE:
+Basic printing, GDT, IDT, ISR, IRQ, Programable Interrupt Timer
+TODO:
+Keyboard, Physical Memory Manager, Virtual Memory Manager, Filesystems, Multitasking

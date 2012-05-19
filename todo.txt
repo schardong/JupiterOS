@@ -1,3 +1,0 @@
-GDT, IDT, ISR, IRQ
-PIT, Keyboard
-Paging

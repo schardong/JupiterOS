@@ -3,30 +3,31 @@
 /*            Original file taken from Bran's Kernel Development */
 /*            tutorials: http://www.osdever.net/bkerndev/index.php. */
 
+OUTPUT_FORMAT(elf32-i386)
 ENTRY(start)
+phys = 0x00100000;
 SECTIONS
 {
+    . = phys;
 
-    .text 0x100000 :
-    {
-        code = .; _code = .; __code = .;
-        *(.text)
-        . = ALIGN(4096);
+    .__mbHeader : AT(ADDR(.__mbHeader)) {
+      *(.__mbHeader)
     }
 
-    .data :
-    {
+    .text ALIGN(4096) : AT(ADDR(.text)) {
+        code = .; _code = .; __code = .;
+        *(.text)
+    }
+
+    .data ALIGN(4096) : AT(ADDR(.data)){
         data = .; _data = .; __data = .;
         *(.data)
         *(.rodata)
-        . = ALIGN(4096);
     }
 
-    .bss :
-    {
+    .bss ALIGN(4096) : AT(ADDR(.bss)) {
         bss = .; _bss = .; __bss = .;
         *(.bss)
-        . = ALIGN(4096);
     }
 
     end = .; _end = .; __end = .;

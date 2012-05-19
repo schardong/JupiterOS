@@ -51,9 +51,9 @@ $(TARGET): $(OBJS) $(ASM_OBJS)
 	@$(LD) -o $@ $(LDFLAGS) $^
 
 $(JUNK_DIR)%.o: src/%.c
-	mkdir -p "$(dir $@)"
-	$(CC) -c -o $@ $(CFLAGS) $<
+	@mkdir -p "$(dir $@)"
+	@$(CC) -c -o $@ $(CFLAGS) $<
 
 $(JUNK_DIR)%.ao: src/%.asm
-	mkdir -p "$(dir $@)"
-	$(AS) -o $@ $(ASFLAGS) $<
+	@mkdir -p "$(dir $@)"
+	@$(AS) -o $@ $(ASFLAGS) $<
