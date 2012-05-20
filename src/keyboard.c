@@ -11,15 +11,16 @@
 #include <k_stdint.h>
 #include <k_string.h>
 #include <k_stdio.h>
+#include <k_stdbool.h>
 
 
 /**
  * Determines wheter any of the control keys were pressed or released.
  * Its value is 1 if a control key is pressed or 0 otherwise.
  */
-static uint8 alt_pressed = 0;
-static uint8 ctrl_pressed = 0;
-static uint8 shift_pressed = 0;
+static bool alt_pressed = false;
+static bool ctrl_pressed = false;
+static bool shift_pressed = false;
 
 /**
  * Some keys have two byte scancodes. The first byte is always
@@ -91,19 +92,32 @@ static void keyboard_handler(registers_t r) {
   };
   switch(scancode) {
   case 0x2A:
-    shift_pressed = 1; escaped = 0; break;
+    shift_pressed = true;
+    escaped = 0;
+    break;
   case 0xAA:
-    shift_pressed = 0; escaped = 0; break;
+    shift_pressed = false;
+    escaped = 0;
+    break;
   case 0x1D:
-    ctrl_pressed = 1; escaped = 0; break;
+    ctrl_pressed = true;
+    escaped = 0;
+    break;
   case 0x9D:
-    ctrl_pressed = 0; escaped = 0; break;
+    ctrl_pressed = false;
+    escaped = 0;
+    break;
   case 0x38:
-    alt_pressed = 1; escaped = 0; break;
+    alt_pressed = true;
+    escaped = 0;
+    break;
   case 0xB8:
-    alt_pressed = 0; escaped = 0; break;
+    alt_pressed = false;
+    escaped = 0;
+    break;
   case 0xE0:
-    escaped = 1; break;
+    escaped = 1;
+    break;
   default:
     if (scancode & 0x80) {
       /* break code: the user released a key.*/
