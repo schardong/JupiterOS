@@ -1,6 +1,6 @@
 DONE:
 Basic printing, GDT, IDT, ISR, IRQ, Programable Interrupt Timer, Keyboard interaction
 TODO:
-Other printf functions (sprintf, vsprintf snprintf and vsnprintf).
+Other printf functions (snprintf and vsnprintf).
 Keyboard reading (scanf), Mini shell.
 Physical Memory Manager, Virtual Memory Manager, Filesystems, Multitasking
