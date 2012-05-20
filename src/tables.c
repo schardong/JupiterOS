@@ -7,7 +7,7 @@
 
 #include <tables.h>
 #include <asm.h>
-#include <string.h>
+#include <k_string.h>
 #include <isr.h>
 
 #define GDT_SIZE 5

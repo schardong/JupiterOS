@@ -1,4 +1,4 @@
-#include <ctype.h>
+#include <k_ctype.h>
 
 /* int isalnum(int c) */
 /* int isalpha(int c) */

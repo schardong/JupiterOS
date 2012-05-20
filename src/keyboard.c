@@ -8,9 +8,9 @@
 #include <keyboard.h>
 #include <isr.h>
 #include <asm.h>
-#include <stdint.h>
-#include <string.h>
-#include <k_printf.h>
+#include <k_stdint.h>
+#include <k_string.h>
+#include <k_stdio.h>
 
 
 /**

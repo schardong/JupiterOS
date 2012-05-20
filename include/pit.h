@@ -8,7 +8,7 @@
 #ifndef __KERNEL_PIT_H__
 #define __KERNEL_PIT_H__
 
-#include <stdint.h>
+#include <k_stdint.h>
 
 /**
  * init_pit - Initializes the Programmable Interrupt Timer.

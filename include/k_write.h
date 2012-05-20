@@ -1,10 +1,9 @@
 #ifndef __KERNEL_K_WRITE_H__
 #define __KERNEL_K_WRITE_H__
 
-#include <stdint.h>
+#include <k_stdint.h>
 
-enum color
-{
+enum color {
   BLACK,           //0
   BLUE,            //1
   GREEN,           //2

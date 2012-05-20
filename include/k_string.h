@@ -1,14 +1,14 @@
 /**
- * File: string.h
+ * File: k_string.h
  * Author: Guilherme Gonçalves Schardong
  * Defines the basic libcc string functions.
  * File created on 28 June 2011, 09:44
  */
 
-#ifndef __STRING_H__
-#define __STRING_H__
+#ifndef __KERNEL_STRING_H__
+#define __KERNEL_STRING_H__
 
-#include <size_t.h>
+#include <k_size_t.h>
 
 /**
  * bcopy: Copies the content from an region of memory to another.

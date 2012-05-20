@@ -7,9 +7,9 @@
 
 #include <isr.h>
 #include <asm.h>
-#include <null.h>
+#include <k_null.h>
 #include <k_write.h>
-#include <string.h>
+#include <k_string.h>
 
 isr_t interrupt_handlers[256];
 

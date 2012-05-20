@@ -1,8 +1,8 @@
-#include <k_printf.h>
+#include <k_stdio.h>
 #include <k_write.h>
 #include <k_itoa.h>
-#include <string.h>
-#include <ctype.h>
+#include <k_string.h>
+#include <k_ctype.h>
 
 void k_printf(const char* fmt, ...) {
   va_list ap;

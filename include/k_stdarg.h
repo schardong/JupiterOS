@@ -1,8 +1,8 @@
 #ifndef __KERNEL_STDARG_H__
 #define __KERNEL_STDARG_H__
 
-#include <va_list.h>
-#include <stdint.h>
+#include <k_va_list.h>
+#include <k_stdint.h>
 
 #define _va_size(type) (((sizeof(type) + sizeof(int) - 1) / sizeof(int)) * sizeof(int))
 

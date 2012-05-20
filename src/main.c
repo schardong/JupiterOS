@@ -1,6 +1,6 @@
 #include <k_write.h>
 #include <tables.h>
-#include <k_printf.h>
+#include <k_stdio.h>
 #include <asm.h>
 #include <pit.h>
 #include <keyboard.h>

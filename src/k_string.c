@@ -5,7 +5,7 @@
  * File created on 28 June 2011, 09:44
  */
 
-#include <string.h>
+#include <k_string.h>
 
 void bcopy(const void* src, void* dest, size_t count) {
   const char* s = src;

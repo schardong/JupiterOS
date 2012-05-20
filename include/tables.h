@@ -8,7 +8,7 @@
 #ifndef __KERNEL_TABLES_H__
 #define __KERNEL_TABLES_H__
 
-#include <stdint.h>
+#include <k_stdint.h>
 
 /**
  * struct descr_tab_ptr: Describes the pointer to a desctiptor table (GDT, IDT).
