@@ -117,5 +117,4 @@ static void keyboard_handler(registers_t r) {
 
 void k_init_keyboard() {
   register_interrupt_handler(IRQ1, &keyboard_handler);
-  outb(0x21, inb(0x21) & 0xFD);
 }

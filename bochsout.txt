@@ -29,56 +29,56 @@
 00000000000i[     ]   SB16 support: yes
 00000000000i[     ]   USB support: no
 00000000000i[     ]   VGA extension support: vbe cirrus
-00000000000i[MEM0 ] allocated memory at 0x7fa1bfe1b010. after alignment, vector=0x7fa1bfe1c000
+00000000000i[MEM0 ] allocated memory at 0x7ffcde586010. after alignment, vector=0x7ffcde587000
 00000000000i[MEM0 ] 32.00MB
 00000000000i[MEM0 ] mem block size = 0x00100000, blocks=32
 00000000000i[MEM0 ] rom at 0xfffe0000/131072 ('/usr/share/bochs/BIOS-bochs-latest')
 00000000000i[MEM0 ] rom at 0xc0000/40448 ('/usr/share/bochs/VGABIOS-lgpl-latest')
 00000000000i[VTIME] using 'realtime pit' synchronization method
-00000000000i[     ] lt_dlhandle is 0x3a113d0
+00000000000i[     ] lt_dlhandle is 0x390d3d0
 00000000000i[PLGIN] loaded plugin libbx_cmos.so
-00000000000i[     ] lt_dlhandle is 0x3a11d10
+00000000000i[     ] lt_dlhandle is 0x390dd10
 00000000000i[PLGIN] loaded plugin libbx_dma.so
-00000000000i[     ] lt_dlhandle is 0x3a126f0
+00000000000i[     ] lt_dlhandle is 0x390e6f0
 00000000000i[PLGIN] loaded plugin libbx_pic.so
-00000000000i[     ] lt_dlhandle is 0x3a12f50
+00000000000i[     ] lt_dlhandle is 0x390ef50
 00000000000i[PLGIN] loaded plugin libbx_pit.so
-00000000000i[     ] lt_dlhandle is 0x3a13910
+00000000000i[     ] lt_dlhandle is 0x390f910
 00000000000i[PLGIN] loaded plugin libbx_vga.so
-00000000000i[     ] lt_dlhandle is 0x3a140a0
+00000000000i[     ] lt_dlhandle is 0x39100a0
 00000000000i[PLGIN] loaded plugin libbx_hdimage.so
-00000000000i[     ] lt_dlhandle is 0x3a14940
+00000000000i[     ] lt_dlhandle is 0x3910940
 00000000000i[PLGIN] loaded plugin libbx_floppy.so
-00000000000i[     ] lt_dlhandle is 0x3a15530
+00000000000i[     ] lt_dlhandle is 0x3911530
 00000000000i[PLGIN] loaded plugin libbx_soundmod.so
-00000000000i[     ] lt_dlhandle is 0x3a16cb0
+00000000000i[     ] lt_dlhandle is 0x3912cb0
 00000000000i[PLGIN] loaded plugin libbx_pci.so
-00000000000i[     ] lt_dlhandle is 0x3a177b0
+00000000000i[     ] lt_dlhandle is 0x39137b0
 00000000000i[PLGIN] loaded plugin libbx_pci2isa.so
-00000000000i[     ] lt_dlhandle is 0x3a18170
+00000000000i[     ] lt_dlhandle is 0x3914170
 00000000000i[PLGIN] loaded plugin libbx_unmapped.so
-00000000000i[     ] lt_dlhandle is 0x3a18960
+00000000000i[     ] lt_dlhandle is 0x3914960
 00000000000i[PLGIN] loaded plugin libbx_biosdev.so
-00000000000i[     ] lt_dlhandle is 0x3a19320
+00000000000i[     ] lt_dlhandle is 0x3915320
 00000000000i[PLGIN] loaded plugin libbx_speaker.so
-00000000000i[     ] lt_dlhandle is 0x3a19b70
+00000000000i[     ] lt_dlhandle is 0x3915b70
 00000000000i[PLGIN] loaded plugin libbx_extfpuirq.so
-00000000000i[     ] lt_dlhandle is 0x3a1a3d0
+00000000000i[     ] lt_dlhandle is 0x39163d0
 00000000000i[PLGIN] loaded plugin libbx_gameport.so
-00000000000i[     ] lt_dlhandle is 0x3a1ac90
+00000000000i[     ] lt_dlhandle is 0x3916c90
 00000000000i[PLGIN] loaded plugin libbx_pci_ide.so
-00000000000i[     ] lt_dlhandle is 0x3a1b690
+00000000000i[     ] lt_dlhandle is 0x3917690
 00000000000i[PLGIN] loaded plugin libbx_ioapic.so
-00000000000i[     ] lt_dlhandle is 0x3a1bff0
+00000000000i[     ] lt_dlhandle is 0x3917ff0
 00000000000i[PLGIN] loaded plugin libbx_keyboard.so
-00000000000i[     ] lt_dlhandle is 0x3a1c9a0
+00000000000i[     ] lt_dlhandle is 0x39189a0
 00000000000i[PLGIN] loaded plugin libbx_harddrv.so
-00000000000i[     ] lt_dlhandle is 0x3a2e9d0
+00000000000i[     ] lt_dlhandle is 0x392a9d0
 00000000000i[PLGIN] loaded plugin libbx_serial.so
-00000000000i[     ] lt_dlhandle is 0x3a2f8c0
+00000000000i[     ] lt_dlhandle is 0x392b8c0
 00000000000i[PLGIN] loaded plugin libbx_parallel.so
 00000000000i[CMOS ] Using local time for initial clock
-00000000000i[CMOS ] Setting initial clock to: Sun May 20 01:35:40 2012 (time0=1337488540)
+00000000000i[CMOS ] Setting initial clock to: Sun May 20 02:22:04 2012 (time0=1337491324)
 00000000000i[DMA  ] channel 4 used by cascade
 00000000000i[DMA  ] channel 2 used by Floppy Drive
 00000000000e[FDD  ] cannot determine media geometry, trying to use defaults
@@ -174,37 +174,39 @@
 00001460666i[BIOS ] SMBIOS table addr=0x000fba20
 00001460704i[PCI  ] 440FX PMC write to PAM register 59 (TLB Flush)
 00001461496i[BIOS ] bios_table_cur_addr: 0x000fbb2e
-00042593381i[BIOS ] Booting from 0000:7c00
-00044671153i[BIOS ] int13_harddisk: function 41, unmapped device for ELDL=80
-00044675930i[BIOS ] int13_harddisk: function 08, unmapped device for ELDL=80
-00044680583i[BIOS ] *** int 15h function AX=00c0, BX=0000 not yet supported!
-00326200000e[SDL  ] sdl keysym 231 not mapped
-00326757200e[SDL  ] sdl keysym 231 not mapped
-00386365000e[SDL  ] sdl keysym 314 not mapped
-00386960000e[SDL  ] sdl keysym 314 not mapped
-00397040000e[SDL  ] sdl keysym 314 not mapped
-00397740000e[SDL  ] sdl keysym 314 not mapped
-00399280000e[SDL  ] sdl keysym 314 not mapped
-00399910000e[SDL  ] sdl keysym 314 not mapped
-00445905600p[SDL  ] >>PANIC<< POWER button turned off.
-00445905600i[CPU0 ] CPU is in protected mode (active)
-00445905600i[CPU0 ] CS.d_b = 32 bit
-00445905600i[CPU0 ] SS.d_b = 32 bit
-00445905600i[CPU0 ] | EAX=00000668  EBX=0002d000  ECX=00082f33  EDX=00000021
-00445905600i[CPU0 ] | ESP=00067ec4  EBP=00067ee0  ESI=00053c8e  EDI=00053c8f
-00445905600i[CPU0 ] | IOPL=0 id vip vif ac vm rf nt of df IF tf sf zf af PF cf
-00445905600i[CPU0 ] | SEG selector     base    limit G D
-00445905600i[CPU0 ] | SEG sltr(index|ti|rpl)     base    limit G D
-00445905600i[CPU0 ] |  CS:0008( 0001| 0|  0) 00000000 ffffffff 1 1
-00445905600i[CPU0 ] |  DS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
-00445905600i[CPU0 ] |  SS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
-00445905600i[CPU0 ] |  ES:0010( 0002| 0|  0) 00000000 ffffffff 1 1
-00445905600i[CPU0 ] |  FS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
-00445905600i[CPU0 ] |  GS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
-00445905600i[CPU0 ] | EIP=00100028 (00100028)
-00445905600i[CPU0 ] | CR0=0x60000011 CR2=0x00000000
-00445905600i[CPU0 ] | CR3=0x00000000 CR4=0x00000000
-00445905600i[CPU0 ] 0x00100028>> jmp .-2 (0x00100028) : EBFE
-00445905600i[CMOS ] Last time is 1337489177 (Sun May 20 01:46:17 2012)
-00445905600i[     ] restoring default signal behavior
-00445905600i[CTRL ] quit_sim called with exit code 1
+00038699911i[BIOS ] Booting from 0000:7c00
+00040777657i[BIOS ] int13_harddisk: function 41, unmapped device for ELDL=80
+00040782434i[BIOS ] int13_harddisk: function 08, unmapped device for ELDL=80
+00040787087i[BIOS ] *** int 15h function AX=00c0, BX=0000 not yet supported!
+00066955000e[SDL  ] sdl keysym 231 not mapped
+00067930100e[SDL  ] sdl keysym 231 not mapped
+00069778100e[SDL  ] sdl keysym 231 not mapped
+00070492800e[SDL  ] sdl keysym 231 not mapped
+00072100000e[SDL  ] sdl keysym 231 not mapped
+00073150000e[SDL  ] sdl keysym 231 not mapped
+00103810000e[SDL  ] sdl keysym 0 not mapped
+00103810000e[SDL  ] sdl keysym 0 not mapped
+00113750000e[SDL  ] sdl keysym 0 not mapped
+00113750000e[SDL  ] sdl keysym 0 not mapped
+00216405000p[SDL  ] >>PANIC<< POWER button turned off.
+00216405000i[CPU0 ] CPU is in protected mode (active)
+00216405000i[CPU0 ] CS.d_b = 32 bit
+00216405000i[CPU0 ] SS.d_b = 32 bit
+00216405000i[CPU0 ] | EAX=00000668  EBX=0002d000  ECX=00082ef3  EDX=00102a78
+00216405000i[CPU0 ] | ESP=00067ec4  EBP=00067ee0  ESI=00053c8e  EDI=00053c8f
+00216405000i[CPU0 ] | IOPL=0 id vip vif ac vm rf nt of df IF tf sf zf af PF cf
+00216405000i[CPU0 ] | SEG selector     base    limit G D
+00216405000i[CPU0 ] | SEG sltr(index|ti|rpl)     base    limit G D
+00216405000i[CPU0 ] |  CS:0008( 0001| 0|  0) 00000000 ffffffff 1 1
+00216405000i[CPU0 ] |  DS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+00216405000i[CPU0 ] |  SS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+00216405000i[CPU0 ] |  ES:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+00216405000i[CPU0 ] |  FS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+00216405000i[CPU0 ] |  GS:0010( 0002| 0|  0) 00000000 ffffffff 1 1
+00216405000i[CPU0 ] | EIP=00100028 (00100028)
+00216405000i[CPU0 ] | CR0=0x60000011 CR2=0x00000000
+00216405000i[CPU0 ] | CR3=0x00000000 CR4=0x00000000
+00216405000i[CPU0 ] 0x00100028>> jmp .-2 (0x00100028) : EBFE
+00216405000i[CMOS ] Last time is 1337491633 (Sun May 20 02:27:13 2012)
+00216405000i[     ] restoring default signal behavior
+00216405000i[CTRL ] quit_sim called with exit code 1
