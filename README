@@ -1,4 +1,7 @@
 DONE:
-Basic printing, GDT, IDT, ISR, IRQ, Programable Interrupt Timer
+Basic printing, GDT, IDT, ISR, IRQ, Programable Interrupt Timer, Keyboard interaction
 TODO:
-Keyboard, Physical Memory Manager, Virtual Memory Manager, Filesystems, Multitasking
+Rename the std* files to k_std*. Change the guard macros.
+Other printf functions (sprintf, vsprintf snprintf and vsnprintf).
+Keyboard reading (scanf), Mini shell.
+Physical Memory Manager, Virtual Memory Manager, Filesystems, Multitasking

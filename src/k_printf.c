@@ -1,6 +1,8 @@
 #include <k_printf.h>
 #include <k_write.h>
+#include <k_itoa.h>
 #include <string.h>
+#include <ctype.h>
 
 void k_printf(const char* fmt, ...) {
   va_list ap;
@@ -11,17 +13,9 @@ void k_printf(const char* fmt, ...) {
   va_end(ap);
 }
 
-void k_sprintf(char* str, const char* fmt, ...) {
-  va_list ap;
-  va_start(ap, fmt);
-
-  k_vsprintf(str, fmt, ap);
-
-  va_end(ap);
-}
-
 void k_vprintf(const char* fmt, va_list ap) {
   uint32 i;
+  char num[12];
   for(i = 0; i < strlen(fmt); i++) {
     if(fmt[i] != '%' && fmt[i] != '\\') {
       k_writec(fmt[i]);
@@ -57,9 +51,26 @@ void k_vprintf(const char* fmt, va_list ap) {
       k_writec((char) va_arg(ap, char));
       break;
     case 'd':
+      k_itoa((int) va_arg(ap, int), num, 10);
+      k_writes(num);
+      break;
     case 'o':
+      k_itoa((int) va_arg(ap, int), num, 8);
+      k_writes(num);
+      break;
     case 'x':
+      k_itoa((int) va_arg(ap, int), num, 16);
+      k_writes("0x");
+      k_writes(num);
+      break;
     case 'X':
+      k_itoa((int) va_arg(ap, int), num, 16);
+      k_writes("0x");
+      uint32 idx;
+      for(idx = 0; idx < strlen(num); idx++)
+	num[idx] = (char) toupper((char) num[idx]);
+      k_writes(num);
+      break;
     case '%':
       k_writec('%');
       break;
@@ -68,7 +79,4 @@ void k_vprintf(const char* fmt, va_list ap) {
       break;
     }
   }
-}
-
-void k_vsprintf(char* str, const char* fmt, va_list ap) {
 }
