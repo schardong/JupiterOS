@@ -13,7 +13,6 @@
 #include <k_stdio.h>
 #include <k_stdbool.h>
 
-
 /**
  * Determines wheter any of the control keys were pressed or released.
  * Its value is 1 if a control key is pressed or 0 otherwise.

@@ -4,7 +4,7 @@ TARGET := kernel
 
 # BUILD FLAGS #####################################
 
-CFLAGS := -m32 -Wall -Werror -Wextra -Wno-unused -fstrength-reduce -fomit-frame-pointer -fno-stack-protector -finline-functions -nostdinc -nostdlib -fno-builtin
+CFLAGS := -m32 -Wall -Wextra -Wno-unused -fstrength-reduce -fomit-frame-pointer -fno-stack-protector -finline-functions -nostdinc -nostdlib -fno-builtin
 LDFLAGS := -T linker.ld -melf_i386
 ASFLAGS := -f elf32
 AS := nasm
