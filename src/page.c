@@ -1,7 +1,7 @@
 #include <page.h>
 #include <k_null.h>
 #include <k_string.h>
-#include <k_phys_mem_mgr.h>
+#include <k_pmmngr.h>
 #include <k_malloc.h>
 #include <k_stdio.h>
 #include <asm.h>
@@ -12,17 +12,16 @@ page_dir_t* curr_dir;
 
 static void page_fault_handler(registers_t r);
 
-void k_init_paging() {
+void k_init_paging(uint32 mem_size) {
   uint32 i;
-  uint32 mem_kb = 0x1000000; //16Mb for now.
-  k_init_phys_mem_mgr(BYTE(mem_kb / 0x1000));
+  k_init_pmmngr(BYTE(0x1000000 / 0x1000));
 
-  kernel_dir = (page_dir_t*) k_malloc(sizeof(page_dir_t*), true, NULL);
+  kernel_dir = (page_dir_t*) k_malloc(sizeof(page_dir_t), true, NULL);
   memset(kernel_dir, 0, sizeof(page_dir_t));
   kernel_dir->phys_addr = (uint32) &kernel_dir->tables_phys_addr;
   curr_dir = kernel_dir;
 
-  for(i = 0; i < get_placement_addr(); i += 0x1000)
+  for(i = 0; i < get_placement_addr() + 0x1000; i += 0x1000)
     alloc_frame(get_page(i, true, kernel_dir), false, false);
 
   register_interrupt_handler(14, &page_fault_handler);
@@ -30,10 +29,10 @@ void k_init_paging() {
 }
 
 void load_page_dir(page_dir_t* new_dir) {
-  uint32 cr0;
   curr_dir = new_dir;
+  asm volatile("mov %0, %%cr3" :: "r"(&new_dir->tables_phys_addr));
+  unsigned int cr0;
   asm volatile("mov %%cr0, %0" : "=r"(cr0));
-  asm volatile("mov %0, %%cr3" :: "r"(new_dir->phys_addr));
   cr0 |= 0x80000000;
   asm volatile("mov %0, %%cr0" :: "r"(cr0));
 }

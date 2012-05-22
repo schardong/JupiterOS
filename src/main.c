@@ -16,7 +16,7 @@ int main(int esp, multiboot_t* mboot) {
   k_init_timer(100);
   k_init_keyboard();
   sti();
-  k_init_paging();
+  k_init_paging(mboot->mem_lower + mboot->mem_upper);
 
   k_printf("Stack address: %X\n", esp);
   k_printf("Multiboot flags: %X\n", mboot->flags);

@@ -21,8 +21,7 @@
  */
 #define BIT(a) (a % (8 * sizeof(uint8)))
 
-struct bitset
-{
+struct bitset {
   uint8* set;
   uint32 num_bytes;
 };

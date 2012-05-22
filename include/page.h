@@ -18,7 +18,7 @@ struct page_directory {
 };
 typedef struct page_directory page_dir_t;
 
-void k_init_paging();
+void k_init_paging(uint32 mem_size);
 
 void load_page_dir(page_dir_t* new_dir);
 

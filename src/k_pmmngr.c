@@ -1,6 +1,6 @@
-#include <k_phys_mem_mgr.h>
+#include <k_pmmngr.h>
 
-static bitset_t* frames;
+bitset_t* frames;
 
 uint32 first_frame() {
   uint32 i, j;
@@ -12,7 +12,7 @@ uint32 first_frame() {
   return 0;
 }
 
-void k_init_phys_mem_mgr(uint32 num_bytes) {
+void k_init_pmmngr(uint32 num_bytes) {
   frames = create_bitset(num_bytes);
 }
 
