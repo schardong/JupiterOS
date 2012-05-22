@@ -16,7 +16,7 @@ void k_init_pmmngr(uint32 num_bytes) {
   frames = create_bitset(num_bytes);
 }
 
-void alloc_frame(page_t* pg, bool is_kernel_pg, bool write_allowed) {
+void alloc_frame(k_page* pg, bool is_kernel_pg, bool write_allowed) {
   if((*pg & 0xFFFFF000) != 0)
     return;
   uint32 idx = first_frame();
@@ -26,9 +26,19 @@ void alloc_frame(page_t* pg, bool is_kernel_pg, bool write_allowed) {
   *pg = (idx << 12) | (is_kernel_pg << 2) | (write_allowed << 1) | 0x1;
 }
 
-void free_frame(page_t* pg) {
+void free_frame(k_page* pg) {
   if((*pg & 0xFFFFF000) == 0)
     return;
   clear_bit(frames, ((*pg & 0xFFFFF000) / 4096) / 8);
   *pg = 0x0;
+}
+
+uint32 get_num_frames(bool state) {
+  uint32 i, j, count;
+  count = 0;
+  for(i = 0; i < frames->num_bytes; i++)
+    for(j = 0; j < 8; j++)
+      if(test_bit(frames, i * 8 + j) == state)
+	count++;
+  return count;
 }

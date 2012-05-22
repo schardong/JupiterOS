@@ -1,4 +1,4 @@
-#include <page.h>
+#include <k_page.h>
 #include <k_null.h>
 #include <k_string.h>
 #include <k_pmmngr.h>
@@ -7,8 +7,8 @@
 #include <asm.h>
 #include <isr.h>
 
-page_dir_t* kernel_dir;
-page_dir_t* curr_dir;
+k_page_dir* kernel_dir;
+k_page_dir* curr_dir;
 
 static void page_fault_handler(registers_t r);
 
@@ -16,8 +16,8 @@ void k_init_paging(uint32 mem_size) {
   uint32 i;
   k_init_pmmngr(BYTE(mem_size / 0x1000));
 
-  kernel_dir = (page_dir_t*) k_malloc(sizeof(page_dir_t), true, NULL);
-  memset(kernel_dir, 0, sizeof(page_dir_t));
+  kernel_dir = (k_page_dir*) k_malloc(sizeof(k_page_dir), true, NULL);
+  memset(kernel_dir, 0, sizeof(k_page_dir));
   kernel_dir->phys_addr = (uint32) &kernel_dir->tables_phys_addr;
   curr_dir = kernel_dir;
 
@@ -28,23 +28,23 @@ void k_init_paging(uint32 mem_size) {
   load_page_dir(kernel_dir);
 }
 
-void load_page_dir(page_dir_t* new_dir) {
+void load_page_dir(k_page_dir* new_dir) {
   curr_dir = new_dir;
   asm volatile("mov %0, %%cr3" :: "r"(&new_dir->tables_phys_addr));
-  unsigned int cr0;
+  uint32 cr0;
   asm volatile("mov %%cr0, %0" : "=r"(cr0));
   cr0 |= 0x80000000;
   asm volatile("mov %0, %%cr0" :: "r"(cr0));
 }
 
-page_t* get_page(uint32 addr, bool make, page_dir_t* page_dir) {
+k_page* get_page(uint32 addr, bool make, k_page_dir* page_dir) {
   addr /= 0x1000;
   uint32 table_idx = addr / 1024;
   if(page_dir->tables[table_idx] != 0)
     return &page_dir->tables[table_idx]->pages[addr % 1024];
   else if(make == true) {
     uint32 tmp_addr;
-    page_dir->tables[table_idx] = (page_table_t*) k_malloc(sizeof(page_table_t), 1, &tmp_addr);
+    page_dir->tables[table_idx] = (k_page_tab*) k_malloc(sizeof(k_page_tab), 1, &tmp_addr);
     memset(page_dir->tables[table_idx], 0, 0x1000);
     page_dir->tables_phys_addr[table_idx] = tmp_addr | 0x7;
     return &page_dir->tables[table_idx]->pages[addr % 1024];
@@ -66,6 +66,6 @@ static void page_fault_handler(registers_t r) {
   if(user_mode) k_printf(" user-mode");
   if(reserved_bits) k_printf(" reserved");
   if(instruction) k_printf(" instruction");
-  k_printf(") at 0x%X\n", fault_addr);
+  k_printf(") at %X\n", fault_addr);
   halt();
 }
