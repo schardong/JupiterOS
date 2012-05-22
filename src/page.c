@@ -14,7 +14,7 @@ static void page_fault_handler(registers_t r);
 
 void k_init_paging(uint32 mem_size) {
   uint32 i;
-  k_init_pmmngr(BYTE(0x1000000 / 0x1000));
+  k_init_pmmngr(BYTE(mem_size / 0x1000));
 
   kernel_dir = (page_dir_t*) k_malloc(sizeof(page_dir_t), true, NULL);
   memset(kernel_dir, 0, sizeof(page_dir_t));
