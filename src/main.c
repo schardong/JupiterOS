@@ -25,9 +25,8 @@ int main(int esp, multiboot_t* mboot) {
   k_printf("Multiboot mods_count: %d\n", mboot->mods_count);
   k_printf("Total system memory: %d Kb\n", mboot->mem_lower + mboot->mem_upper);
 
-
-  uint32 *ptr = (uint32*)0xA0000000;
-  uint32 do_page_fault = *ptr;
+  /* uint32 *ptr = (uint32*)0xA0000000; */
+  /* uint32 do_page_fault = *ptr; */
 
   return 0x668;
 }
