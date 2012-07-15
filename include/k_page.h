@@ -24,4 +24,8 @@ void load_page_dir(k_page_dir* new_dir);
 
 k_page* get_page(uint32 addr, bool make, k_page_dir* page_dir);
 
+k_page_dir* get_kernel_dir();
+
+k_page_dir* get_curr_dir();
+
 #endif /* __KERNEL_PAGE_H__ */

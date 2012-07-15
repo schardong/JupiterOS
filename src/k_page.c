@@ -52,6 +52,14 @@ k_page* get_page(uint32 addr, bool make, k_page_dir* page_dir) {
   return NULL;
 }
 
+k_page_dir* get_kernel_dir() {
+  return kernel_dir;
+}
+
+k_page_dir* get_curr_dir() {
+  return curr_dir;
+}
+
 static void page_fault_handler(registers_t r) {
   uint32 fault_addr;
   asm volatile("mov %%cr2, %0" : "=r"(fault_addr));

@@ -13,7 +13,7 @@ void alloc_frame(k_page* pg, bool is_kernel_pg, bool write_allowed);
 void free_frame(k_page* pg);
 
 /**
- * get_num_frames: Returnes the number of frames.
+ * get_num_frames: Returns the number of frames.
  * @state: If set then the function returns the number of occupied frames.
  * If unset, it returns the number of free frames.
  * @returns: The number of frames given the state.

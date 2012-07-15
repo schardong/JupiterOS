@@ -1,11 +1,17 @@
 #!/bin/bash
 
-sudo /sbin/losetup /dev/loop1 floppy.img
-sudo mount /dev/loop1 /mnt
-sudo cp bin/kernel /mnt/kernel
-sudo cp initrd.img /mnt/initrd
-sudo umount /dev/loop1
-sudo /sbin/losetup -d /dev/loop1
-sudo losetup /dev/loop1 floppy.img
-sudo bochs -q -f bochsrc.txt
-sudo losetup -d /dev/loop1
+if [ "$(id -u)" != "0" ]; then
+    echo "You must run this script as root"
+    exit 1
+else
+    /sbin/losetup /dev/loop1 floppy.img
+    mount /dev/loop1 /mnt
+    cp bin/kernel /mnt/kernel
+    cp initrd.img /mnt/initrd
+    umount /dev/loop1
+    /sbin/losetup -d /dev/loop1
+    losetup /dev/loop1 floppy.img
+    bochs -q -f bochsrc.txt
+    losetup -d /dev/loop1
+    exit 0
+fi
