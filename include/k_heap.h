@@ -1,7 +1,7 @@
 #ifndef __KERNEL_HEAP_H__
 #define __KERNEL_HEAP_H__
 
-#include <k_ordered_arr.h>
+#include <ordered_arr.h>
 
 #define K_HEAP_START_ADDR 0xC0000000
 #define K_HEAP_INIT_SIZE 0x100000
@@ -23,7 +23,7 @@ struct _k_heap_footer {
 typedef struct _k_heap_footer k_heap_footer;
 
 struct _k_heap {
-  k_ordered_arr index_arr;
+  ordered_arr index_arr;
   uint32 start_addr;
   uint32 end_addr;
   uint32 max_addr;

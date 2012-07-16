@@ -7,12 +7,13 @@ DONE:
  *Programable Interrupt Timer.
  *Keyboard interaction.
  *Physical Memory Manager.
- *Virtual Memory Manager
+ *Virtual Memory Manager.
+ *Kernel heap.
+ *Virtual File System.
 
 TODO:
  *Other printf functions (snprintf and vsnprintf).
  *Keyboard reading (scanf).
  *Mini shell.
- *Virtual Filesystem.
  *Multitasking and Multithreading.
  *Inter Process Communication (Shared memory and message passing).

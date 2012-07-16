@@ -20,15 +20,15 @@ struct _ordered_arr {
   size_t max_size;
   cb_less_than cb;
 };
-typedef struct _ordered_arr k_ordered_arr;
+typedef struct _ordered_arr ordered_arr;
 
-k_ordered_arr create_ordered_arr(size_t max_size, cb_less_than cb);
-k_ordered_arr place_ordered_arr(void* addr, size_t max_size, cb_less_than cb);
-void destroy_ordered_arr(k_ordered_arr* arr);
-void remove_ordered_arr(k_ordered_arr* arr, uint32 idx);
-type_t search_ordered_arr(k_ordered_arr* arr, uint32 idx);
-void insert_ordered_arr(k_ordered_arr* arr, type_t item);
+ordered_arr create_ordered_arr(size_t max_size, cb_less_than cb);
+ordered_arr place_ordered_arr(void* addr, size_t max_size, cb_less_than cb);
+void destroy_ordered_arr(ordered_arr* arr);
+void remove_ordered_arr(ordered_arr* arr, uint32 idx);
+type_t search_ordered_arr(ordered_arr* arr, uint32 idx);
+void insert_ordered_arr(ordered_arr* arr, type_t item);
 bool std_callback(type_t a, type_t b);
-void print_arr(k_ordered_arr* arr);
+void print_arr(ordered_arr* arr);
 
 #endif /* __KERNEL_ORDERED_ARR_H__ */

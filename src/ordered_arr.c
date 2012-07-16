@@ -1,10 +1,10 @@
-#include <k_ordered_arr.h>
+#include <ordered_arr.h>
 #include <k_stdio.h>
 #include <k_string.h>
 #include <k_malloc.h>
 
-k_ordered_arr create_ordered_arr(size_t max_size, cb_less_than cb) {
-  k_ordered_arr arr;
+ordered_arr create_ordered_arr(size_t max_size, cb_less_than cb) {
+  ordered_arr arr;
   arr.arr = (type_t*) k_malloc(sizeof(type_t) * max_size, false, NULL);
   memset(arr.arr, 0, sizeof(type_t) * max_size);
   arr.size = 0;
@@ -13,8 +13,8 @@ k_ordered_arr create_ordered_arr(size_t max_size, cb_less_than cb) {
   return arr;
 }
 
-k_ordered_arr place_ordered_arr(void* addr, size_t max_size, cb_less_than cb) {
-  k_ordered_arr arr;
+ordered_arr place_ordered_arr(void* addr, size_t max_size, cb_less_than cb) {
+  ordered_arr arr;
   arr.arr = addr;
   memset(arr.arr, 0, sizeof(type_t) * max_size);
   arr.size = 0;
@@ -23,12 +23,12 @@ k_ordered_arr place_ordered_arr(void* addr, size_t max_size, cb_less_than cb) {
   return arr;
 }
 
-void destroy_ordered_arr(k_ordered_arr* arr) {
+void destroy_ordered_arr(ordered_arr* arr) {
   k_free(arr->arr);
   k_free(arr);
 }
 
-void remove_ordered_arr(k_ordered_arr* arr, uint32 idx) {
+void remove_ordered_arr(ordered_arr* arr, uint32 idx) {
   while(idx < arr->size) {
     arr->arr[idx] = arr->arr[idx];
     idx++;
@@ -36,13 +36,13 @@ void remove_ordered_arr(k_ordered_arr* arr, uint32 idx) {
   arr->size--;
 }
 
-type_t search_ordered_arr(k_ordered_arr* arr, uint32 idx) {
+type_t search_ordered_arr(ordered_arr* arr, uint32 idx) {
   if(arr->size < idx)
     return NULL;
   return arr->arr[idx];
 }
 
-void insert_ordered_arr(k_ordered_arr* arr, type_t item) {
+void insert_ordered_arr(ordered_arr* arr, type_t item) {
   if(arr->cb == NULL)
     return;
   uint32 it = 0;
@@ -67,7 +67,7 @@ bool std_callback(type_t a, type_t b) {
   return (a < b)? true:false;
 }
 
-void print_arr(k_ordered_arr* arr) {
+void print_arr(ordered_arr* arr) {
   if(arr == NULL) {
     k_printf("Invalid array. Is null\n");
     return;

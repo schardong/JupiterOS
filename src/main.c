@@ -7,8 +7,6 @@
 #include <keyboard.h>
 #include <multiboot.h>
 #include <k_page.h>
-#include <k_heap.h>
-#include <k_malloc.h>
 
 int main(int esp, multiboot_t* mboot) {
   k_init_screen();
@@ -18,15 +16,7 @@ int main(int esp, multiboot_t* mboot) {
   k_init_timer(100);
   k_init_keyboard();
   sti();
-
-  uint32 a = k_malloc(8, false, NULL);
   k_init_paging((mboot->mem_lower + mboot->mem_upper) * 1024);
-  uint32 b = k_malloc(8, false, NULL);
-  uint32 c = k_malloc(8, false, NULL);
-  k_printf("a = %d\nb = %d\nc = %d\n", a, b, c);
-  k_free((void*) b);
-  uint32 d = k_malloc(8, false, NULL);
-  k_printf("d = %d\n", d);
 
   k_printf("Stack address: %X\n", esp);
   k_printf("Multiboot flags: %X\n", mboot->flags);
