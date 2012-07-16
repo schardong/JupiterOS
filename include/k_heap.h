@@ -9,14 +9,18 @@
 #define K_HEAP_MAGIC 0x08031211
 #define K_HEAP_MIN_SIZE 0x7000
 
-struct _header {
-  struct _header* next;
-  struct _header* prev;
+struct _k_heap_header {
   uint32 size;
   uint32 magic;
   bool is_hole;
 };
-typedef struct _header k_heap_header;
+typedef struct _k_heap_header k_heap_header;
+
+struct _k_heap_footer {
+  uint32 magic;
+  k_heap_header* header;
+};
+typedef struct _k_heap_footer k_heap_footer;
 
 struct _k_heap {
   k_ordered_arr index_arr;

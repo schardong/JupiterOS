@@ -34,7 +34,6 @@ k_heap* k_init_heap(uint32 start, uint32 end, uint32 max, bool super, bool write
   h->size = end - start;
   h->magic = K_HEAP_MAGIC;
   h->is_hole = true;
-  h->next = h->prev = NULL;
 
   return hp;
 }
@@ -47,8 +46,63 @@ void k_destroy_heap(k_heap* hp) {
 }
 
 void* allocate(k_heap* hp, size_t sz, bool align) {
-  //TODO: Do the allocate function (k_heap.c)
-  return NULL;
+  size_t new_size = sizeof(k_heap_header) + sizeof(k_heap_footer) + sz;
+  int32 it = find_smallest_hole(hp, new_size, align);
+
+  if(it == -1) {
+    //TODO: Handle errors.
+  }
+
+  k_heap_header* orig_hole_header = (k_heap_header*) search_ordered_arr(&hp->index_arr, it);
+
+  uint32 orig_hole_header_loc = (uint32) orig_hole_header;
+  uint32 orig_hole_header_size = orig_hole_header->size;
+  if(orig_hole_header_size - new_size < sizeof(k_heap_header) + sizeof(k_heap_footer)) {
+    sz += orig_hole_header_size - new_size;
+    new_size = orig_hole_header_size;
+  }
+
+  if(align == true && (orig_hole_header_loc & 0xFFFFF000) != 0) {
+    uint32 new_loc = orig_hole_header_loc + 0x1000 - (orig_hole_header_loc & 0xFFF) - sizeof(k_heap_header);
+
+    k_heap_header* hole_header = (k_heap_header*) orig_hole_header_loc;
+    hole_header->size = 0x1000 - (orig_hole_header_loc & 0xFFF)- sizeof(k_heap_header);
+    hole_header->magic = K_HEAP_MAGIC;
+    hole_header->is_hole = true;
+    
+    k_heap_footer* hole_footer = (k_heap_footer*) ((uint32) new_loc - sizeof(k_heap_footer));
+    hole_footer->magic = K_HEAP_MAGIC;
+    hole_footer->header = hole_header;
+    orig_hole_header_loc = new_loc;
+    orig_hole_header_size -= hole_header->size;
+  }
+  else
+    remove_ordered_arr(&hp->index_arr, it);
+
+  k_heap_header* blck_header = (k_heap_header*) orig_hole_header_loc;
+  blck_header->magic = K_HEAP_MAGIC;
+  blck_header->size = new_size;
+  blck_header->is_hole = false;
+
+  k_heap_footer* blck_footer = (k_heap_footer*) (orig_hole_header_loc + sizeof(k_heap_header) + sz);
+  blck_footer->magic = K_HEAP_MAGIC;
+  blck_footer->header = blck_header;
+
+  if(orig_hole_header_size - new_size > 0) {
+    k_heap_header* hole_header = (k_heap_header*) (orig_hole_header_loc + sizeof(k_heap_header) + sz + sizeof(k_heap_footer));
+    hole_header->magic = K_HEAP_MAGIC;
+    hole_header->is_hole = true;
+    hole_header->size = orig_hole_header_size - new_size;
+
+    k_heap_footer* hole_footer = (k_heap_footer*) ((uint32) hole_header + orig_hole_header_size - new_size - sizeof(k_heap_footer));
+    if((uint32) hole_footer < hp->end_addr) {
+      hole_footer->magic = K_HEAP_MAGIC;
+      hole_footer->header = hole_header;
+    }
+    insert_ordered_arr(&hp->index_arr, (void*) hole_header);
+  }
+
+  return (void*) ( (uint32) blck_header + sizeof(k_heap_header));
 }
 
 void free(k_heap* hp, void* ptr) {

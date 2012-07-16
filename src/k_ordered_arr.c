@@ -28,6 +28,14 @@ void destroy_ordered_arr(k_ordered_arr* arr) {
   k_free(arr);
 }
 
+void remove_ordered_arr(k_ordered_arr* arr, uint32 idx) {
+  while(idx < arr->size) {
+    arr->arr[idx] = arr->arr[idx];
+    idx++;
+  }
+  arr->size--;
+}
+
 type_t search_ordered_arr(k_ordered_arr* arr, uint32 idx) {
   if(arr->size < idx)
     return NULL;
