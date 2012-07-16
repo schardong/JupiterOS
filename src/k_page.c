@@ -4,11 +4,13 @@
 #include <k_pmmngr.h>
 #include <k_malloc.h>
 #include <k_stdio.h>
+#include <k_heap.h>
 #include <asm.h>
 #include <isr.h>
 
 k_page_dir* kernel_dir;
 k_page_dir* curr_dir;
+extern k_heap* kernel_heap; //Defined on k_heap.c
 
 static void page_fault_handler(registers_t r);
 
@@ -21,11 +23,19 @@ void k_init_paging(uint32 mem_size) {
   kernel_dir->phys_addr = (uint32) &kernel_dir->tables_phys_addr;
   curr_dir = kernel_dir;
 
+  for(i = K_HEAP_START_ADDR; i < K_HEAP_START_ADDR + K_HEAP_INIT_SIZE; i += 0x1000)
+    get_page(i, true, get_kernel_dir());
+
   for(i = 0; i < get_placement_addr() + 0x1000; i += 0x1000)
-    alloc_frame(get_page(i, true, kernel_dir), false, false);
+    alloc_frame(get_page(i, true, get_kernel_dir()), false, false);
+
+  for(i = K_HEAP_START_ADDR; i < K_HEAP_START_ADDR + K_HEAP_INIT_SIZE; i += 0x1000)
+    alloc_frame(get_page(i, true, get_kernel_dir()), false, false);
 
   register_interrupt_handler(14, &page_fault_handler);
   load_page_dir(kernel_dir);
+
+  kernel_heap = k_init_heap(K_HEAP_START_ADDR, K_HEAP_START_ADDR + K_HEAP_INIT_SIZE, 0xCFFFF000, false, false);
 }
 
 void load_page_dir(k_page_dir* new_dir) {

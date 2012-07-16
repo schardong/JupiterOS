@@ -4,6 +4,8 @@
 #include <k_page.h>
 #include <k_pmmngr.h>
 
+k_heap* kernel_heap = NULL;
+
 void expand_heap(k_heap* hp, size_t new_size);
 size_t contract_heap(k_heap* hp, size_t new_size);
 bool cb_header(void* a, void* b);
@@ -49,8 +51,45 @@ void* allocate(k_heap* hp, size_t sz, bool align) {
   size_t new_size = sizeof(k_heap_header) + sizeof(k_heap_footer) + sz;
   int32 it = find_smallest_hole(hp, new_size, align);
 
+  //If we didn't find any hole large enough on the index array we must expand the index array.
   if(it == -1) {
-    //TODO: Handle errors.
+    uint32 old_len = hp->end_addr - hp->start_addr;
+    uint32 old_end = hp->end_addr;
+
+    expand_heap(hp, old_len + new_size);
+
+    uint32 new_len = hp->end_addr - hp->start_addr;
+    it = 0;
+    int32 idx = -1;
+    uint32 val = 0x0;
+    while(it < (int32) hp->index_arr.size) {
+      uint32 tmp = (uint32) search_ordered_arr(&hp->index_arr, it);
+      if(tmp > val) {
+	val = tmp;
+	idx = it;
+      }
+      it++;
+    }
+
+    //If there are NO holes on the index, we need to create one.
+    if(idx == -1) {
+      k_heap_header* h = (k_heap_header*) old_end;
+      h->magic = K_HEAP_MAGIC;
+      h->size = new_len - old_len;
+      h->is_hole = true;
+      k_heap_footer* f = (k_heap_footer*) (old_end + h->size - sizeof(k_heap_footer));
+      f->magic = K_HEAP_MAGIC;
+      f->header = h;
+      insert_ordered_arr(&hp->index_arr, (void*) h);
+    }
+    else {
+      k_heap_header* h = search_ordered_arr(&hp->index_arr, idx);
+      h->size += new_len - old_len;
+      k_heap_footer* f = (k_heap_footer*) ((uint32) h + h->size - sizeof(k_heap_footer));
+      f->magic = K_HEAP_MAGIC;
+      f->header = h;
+    }
+    return allocate(hp, sz, align);
   }
 
   k_heap_header* orig_hole_header = (k_heap_header*) search_ordered_arr(&hp->index_arr, it);
@@ -106,7 +145,63 @@ void* allocate(k_heap* hp, size_t sz, bool align) {
 }
 
 void free(k_heap* hp, void* ptr) {
-  //TODO: Do the free function (k_heap.c)
+  if(ptr == NULL)
+    return;
+
+  k_heap_header* header = (k_heap_header*) ((uint32) ptr - sizeof(k_heap_header));
+  k_heap_footer* footer = (k_heap_footer*) ((uint32) header + header->size - sizeof(k_heap_footer));
+
+  if(header->magic != K_HEAP_MAGIC || footer->magic != K_HEAP_MAGIC)
+    return;
+
+  header->is_hole = true;
+  bool add_to_idx_arr = true;
+
+  //Unify left.
+  k_heap_footer* test_f = (k_heap_footer*) ((uint32) header - sizeof(k_heap_footer));
+  if(test_f->magic == K_HEAP_MAGIC && test_f->header->is_hole == true) {
+    uint32 tmp = header->size;
+    header = test_f->header;
+    footer->header = header;
+    header->size += tmp;
+    add_to_idx_arr = false;
+  }
+
+  //Unify right.
+  k_heap_header* test_h = (k_heap_header*) ((uint32) footer + sizeof(k_heap_footer));
+  if(test_h->magic == K_HEAP_MAGIC && test_h->is_hole == true) {
+    header->size += test_h->size;
+    test_f = (k_heap_footer*) ((uint32) test_h + test_h->size - sizeof(k_heap_footer));
+    footer = test_f;
+    uint32 it = 0;
+    while(it < hp->index_arr.size && search_ordered_arr(&hp->index_arr, it) != (void*) test_h)
+      it++;
+    if(it >= hp->index_arr.size)
+      return;
+    remove_ordered_arr(&hp->index_arr, it);
+  }
+
+  if((uint32) footer + sizeof(k_heap_footer) == hp->end_addr) {
+    uint32 old_len = hp->end_addr - hp->start_addr;
+    uint32 new_len = contract_heap(hp, (uint32) header - hp->start_addr);
+
+    if(header->size - (old_len - new_len) > 0) {
+      header->size -= old_len - new_len;
+      footer = (k_heap_footer*) ((uint32) header + header->size - sizeof(k_heap_footer));
+      footer->magic = K_HEAP_MAGIC;
+      footer->header = header;
+    }
+    else {
+      uint32 it = 0;
+      while((it < hp->index_arr.size) && (search_ordered_arr(&hp->index_arr, it) != (void*) test_h))
+	it++;
+      if(it < hp->index_arr.size)
+	remove_ordered_arr(&hp->index_arr, it);
+    }
+  }
+
+  if(add_to_idx_arr == true)
+    insert_ordered_arr(&hp->index_arr, (void*) header);
 }
 
 void expand_heap(k_heap* hp, size_t new_size) {
