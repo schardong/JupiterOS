@@ -26,6 +26,7 @@ struct _fs_node {
   uint32 flags;
   uint32 inode;
   size_t size;
+  uint32 impl;
   void (*vfs_open_node)(struct _fs_node*, bool, bool);
   void (*vfs_close_node)(struct _fs_node*);
   uint32 (*vfs_read_node)(struct _fs_node*, uint32, uint32, uint8*);

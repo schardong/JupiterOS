@@ -12,4 +12,4 @@ keyboard_mapping: enabled=0, map=$BXSHARE/keymaps/sdl-pc-us.map
 panic: action=ask
 error: action=report
 debugger_log: debugger.txt
-#gdbstub: enabled=1, port=1234, text_base=0, data_base=0, bss_base=0
+gdbstub: enabled=1, port=1234, text_base=0, data_base=0, bss_base=0

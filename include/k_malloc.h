@@ -11,4 +11,6 @@ void k_free(void* ptr);
 
 uint32 get_placement_addr();
 
+void set_placement_addr(uint32 addr);
+
 #endif /* __KERNEL_MALLOC_H__ */

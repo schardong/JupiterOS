@@ -13,7 +13,7 @@ LD := ld
 
 ifneq ($(MAKECMDGOALS), release)
     CONFIG := debug
-    CFLAGS += -g3 -O0 -D_DEBUG
+    CFLAGS += -g3 -D_DEBUG
 else
     CONFIG := release
     CFLAGS += -g0 -O2 -DNDEBUG

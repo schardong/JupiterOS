@@ -1,6 +1,8 @@
 #include <vfs.h>
 #include <k_null.h>
 
+fs_node* vfs_root = NULL;
+
 void std_open_node(fs_node* node, bool read, bool write) {
   if(node != NULL && node->vfs_open_node != NULL)
     node->vfs_open_node(node, read, write);
