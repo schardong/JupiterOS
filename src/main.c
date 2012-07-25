@@ -10,6 +10,9 @@
 #include <k_malloc.h>
 #include <vfs.h>
 #include <initrd.h>
+#include <k_null.h>
+
+void list_root(fs_node* node);
 
 int main(int esp, multiboot_t* mboot) {
   k_init_screen();
@@ -25,7 +28,7 @@ int main(int esp, multiboot_t* mboot) {
   set_placement_addr(initrd_end);
 
   k_init_paging((mboot->mem_lower + mboot->mem_upper) * 1024);
-  fs_node* root = k_init_initrd(initrd_addr);
+  /* fs_node* root = k_init_initrd(initrd_addr); */
 
   k_printf("Stack address: %X\n", esp);
   k_printf("Multiboot flags: %X\n", mboot->flags);
@@ -33,7 +36,24 @@ int main(int esp, multiboot_t* mboot) {
   k_printf("Multiboot mem_upper: %d\n", mboot->mem_upper);
   k_printf("Multiboot mods_count: %d\n", mboot->mods_count);
   k_printf("Total system memory: %d Kb\n", mboot->mem_lower + mboot->mem_upper);
-  k_printf("Name of the root on initrd: %s\n", root->name);
+  /* list_root(root); */
 
   return 0x668;
+}
+
+void list_root(fs_node* root) {
+  int i = 0;
+  struct dirent* dir = NULL;
+  while((dir = std_read_dir(root, i)) != NULL) {
+    k_printf("Found file: %s\n", dir->name);
+    fs_node* fsnode = std_find_dir(root, dir->name);
+    if((fsnode->flags & 0x7) == FS_DIRECTORY)
+      k_printf("\t(directory)\n");
+    else {
+      uint8 buf[256];
+      uint32 sz = std_read_node(fsnode, 0, 256, buf);
+      k_printf("\tsize: %d\n\tcontents: %s\n", sz, buf);
+    }
+    i++;
+  }
 }

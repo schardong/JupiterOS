@@ -11,7 +11,7 @@ else
     umount /dev/loop1
     /sbin/losetup -d /dev/loop1
     losetup /dev/loop1 floppy.img
-    bochs -q -f bochsrc.txt
+    bochs-gdb -q -f bochsrc.txt
     losetup -d /dev/loop1
     exit 0
 fi
